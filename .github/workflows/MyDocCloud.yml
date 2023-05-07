@@ -18,7 +18,7 @@ env:
   API_IMPORT_VERSION: v1
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 7.0.x
-  WORKING_DIRECTORY: MyDocAppointment.API
+  WORKING_DIRECTORY: MyDocAppointment.API\MyDocAppointment.API.csproj
   WORKING_SLN: MyDocAppointment.API\API.sln
 jobs:
   build:
@@ -34,9 +34,9 @@ jobs:
       with:
         dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
     - name: Restore
-      run: dotnet restore ${{ env.WORKING_DIRECTORY }}\MyDocAppointment.API.csproj
+      run: dotnet restore ${{ env.WORKING_DIRECTORY }}
     - name: Build
-      run: dotnet build ${{ env.WORKING_DIRECTORY }}\MyDocAppointment.API.csproj --configuration ${{ env.CONFIGURATION }} --no-restore
+      run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Publish
       run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Install Swashbuckle CLI .NET Global Tool
