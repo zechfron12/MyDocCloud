@@ -9,7 +9,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:4200")
+                          policy.WithOrigins("http://localhost:4200", "https://thankful-field-0cc7fbf03.3.azurestaticapps.net")
                                                  .AllowAnyHeader()
                                                  .AllowAnyMethod();
                       });
