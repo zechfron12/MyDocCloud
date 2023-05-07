@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDocAppointment.BusinessLayer", "MyDocAppointment.BusinessLayer\MyDocAppointment.BusinessLayer.csproj", "{880C5F85-884C-4946-9D84-992F368AA51F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{28700E37-8FA0-4AC8-8C45-1B2F71F0AEAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDocAppointment.API", "MyDocAppointment.API\MyDocAppointment.API.csproj", "{522AAAB4-C65B-4DB7-83D5-3C982C50241F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{665FCF7A-3EEC-4B4D-AB98-22B03321F8DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{6262EA88-5795-408B-B336-0A62DD27CAAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDocAppointment.Tests", "MyDocAppointment.Tests\MyDocAppointment.Tests.csproj", "{4C2A685C-8BE6-44D0-8B01-7369E2B1F9FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{880C5F85-884C-4946-9D84-992F368AA51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880C5F85-884C-4946-9D84-992F368AA51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880C5F85-884C-4946-9D84-992F368AA51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880C5F85-884C-4946-9D84-992F368AA51F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{522AAAB4-C65B-4DB7-83D5-3C982C50241F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{522AAAB4-C65B-4DB7-83D5-3C982C50241F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{522AAAB4-C65B-4DB7-83D5-3C982C50241F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{522AAAB4-C65B-4DB7-83D5-3C982C50241F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2A685C-8BE6-44D0-8B01-7369E2B1F9FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C2A685C-8BE6-44D0-8B01-7369E2B1F9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C2A685C-8BE6-44D0-8B01-7369E2B1F9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C2A685C-8BE6-44D0-8B01-7369E2B1F9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{880C5F85-884C-4946-9D84-992F368AA51F} = {6262EA88-5795-408B-B336-0A62DD27CAAF}
+		{522AAAB4-C65B-4DB7-83D5-3C982C50241F} = {665FCF7A-3EEC-4B4D-AB98-22B03321F8DE}
+		{4C2A685C-8BE6-44D0-8B01-7369E2B1F9FF} = {28700E37-8FA0-4AC8-8C45-1B2F71F0AEAF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {442B6AE6-454F-4C74-92A8-6106E582BACD}
+	EndGlobalSection
+EndGlobal

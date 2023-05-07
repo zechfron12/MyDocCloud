@@ -1,0 +1,118 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C8C8876D-352D-461B-A9D2-958C031AD221}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ClassLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>API</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
+    <None Include="appsettings.json" />
+    <None Include="dbMyDocAppointmentManagement.db" />
+    <None Include="package-lock.json" />
+    <None Include="Properties\launchSettings.json" />
+    <None Include="Properties\serviceDependencies.json" />
+    <None Include="Properties\serviceDependencies.MyDocAppointmentAPI.json" />
+    <None Include="Properties\ServiceDependencies\MyDocAppointmentAPI\apis1.arm.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapperProfiles.cs" />
+    <Compile Include="ConfigureServices.cs" />
+    <Compile Include="Features\Appointments\AppointmentDto.cs" />
+    <Compile Include="Features\Appointments\AppointmentsController.cs" />
+    <Compile Include="Features\Appointments\AppointmentsDtoFromDoctor.cs" />
+    <Compile Include="Features\Appointments\AppointmentsDtoFromPatient.cs" />
+    <Compile Include="Features\Appointments\CreateAppointmentDto.cs" />
+    <Compile Include="Features\Bills\BillDto.cs" />
+    <Compile Include="Features\Bills\BillsController.cs" />
+    <Compile Include="Features\Bills\CreateBillDto.cs" />
+    <Compile Include="Features\Bills\PaymentDto.cs" />
+    <Compile Include="Features\Doctors\CreateDoctorDto.cs" />
+    <Compile Include="Features\Doctors\CreateReviewDto.cs" />
+    <Compile Include="Features\Doctors\DoctorDto.cs" />
+    <Compile Include="Features\Doctors\DoctorsController.cs" />
+    <Compile Include="Features\Histories\CreateHistoryDto.cs" />
+    <Compile Include="Features\Histories\HistoriesController.cs" />
+    <Compile Include="Features\Histories\HistoryDto.cs" />
+    <Compile Include="Features\Hospitals\CreateHospitalDto.cs" />
+    <Compile Include="Features\Hospitals\HospitalDto.cs" />
+    <Compile Include="Features\Hospitals\HospitalsController.cs" />
+    <Compile Include="Features\MedicationDosage\MedicationDosagePrescriptionDto.cs" />
+    <Compile Include="Features\Medications\CreateMedicationDto.cs" />
+    <Compile Include="Features\Medications\MedicationDto.cs" />
+    <Compile Include="Features\Medications\MedicationsController.cs" />
+    <Compile Include="Features\Patients\Commands and Queries\CreatePatientCommand.cs" />
+    <Compile Include="Features\Patients\Commands and Queries\DeletePatientComand.cs" />
+    <Compile Include="Features\Patients\Commands and Queries\GetAllAppointmentsFromPatientQuery.cs" />
+    <Compile Include="Features\Patients\Commands and Queries\GetAllPatientsQuery.cs" />
+    <Compile Include="Features\Patients\CreatePatientDto.cs" />
+    <Compile Include="Features\Patients\Handlers\CreatePatientCommandHandler.cs" />
+    <Compile Include="Features\Patients\Handlers\DeletePatientCommandHandler.cs" />
+    <Compile Include="Features\Patients\Handlers\GetAllAppointmentsFromPatientQueryHandler.cs" />
+    <Compile Include="Features\Patients\Handlers\GetAllPatientsQueryHandler.cs" />
+    <Compile Include="Features\Patients\PatientDto.cs" />
+    <Compile Include="Features\Patients\PatientsController.cs" />
+    <Compile Include="Features\Prescriptions\Commands and Queries\CreatePrescriptionCommnad.cs" />
+    <Compile Include="Features\Prescriptions\Commands and Queries\DeletePrescriptionCommand.cs" />
+    <Compile Include="Features\Prescriptions\Commands and Queries\GetAllMedicationsFromPresctriptionQuery.cs" />
+    <Compile Include="Features\Prescriptions\Commands and Queries\GetAllPrescriptionsQuery.cs" />
+    <Compile Include="Features\Prescriptions\CreatePrescriptionDto.cs" />
+    <Compile Include="Features\Prescriptions\Handlers\CreatePrescriptionCommandHandler.cs" />
+    <Compile Include="Features\Prescriptions\Handlers\DeletePrescritionCommandHandler.cs" />
+    <Compile Include="Features\Prescriptions\Handlers\GetAllMedicationsFromPresctriptionQueryHandler.cs" />
+    <Compile Include="Features\Prescriptions\Handlers\GetAllPrescriptionsQueryHandler.cs" />
+    <Compile Include="Features\Prescriptions\PrescriptionDto.cs" />
+    <Compile Include="Features\Prescriptions\PrescriptionsController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Validations\AppointmentValidator.cs" />
+    <Compile Include="Validations\DoctorValidator.cs" />
+    <Compile Include="Validations\HistoryValidator.cs" />
+    <Compile Include="Validations\HospitalValidator.cs" />
+    <Compile Include="Validations\MedicationValidator.cs" />
+    <Compile Include="Validations\PatientValidator.cs" />
+    <Compile Include="Validations\PrescriptionValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\serviceDependencies.MyDocAppointmentAPI.json.user" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\API\v17\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
