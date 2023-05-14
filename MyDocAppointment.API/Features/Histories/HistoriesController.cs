@@ -21,7 +21,12 @@ namespace MyDocAppointment.API.Features.Histories
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Get all histories.
+        /// </summary>
+        /// <response code="200">Returns the entire history collection</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAllHistories()
         {
 
@@ -31,7 +36,15 @@ namespace MyDocAppointment.API.Features.Histories
             return Ok(historiesDto);
         }
 
+        /// <summary>
+        /// Get medications from a specific history payment.
+        /// </summary>
+        /// <response code="200">Returns the medication of a specific history</response>
+        /// <response code="404">History with given id not found</response>
         [HttpGet("{historyId:Guid}/medications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public IActionResult GetMedicationsFromHistory(Guid historyId)
         {
             var history = historyRepository.GetById(historyId).Result;
@@ -41,8 +54,15 @@ namespace MyDocAppointment.API.Features.Histories
             }
             return Ok(history.MedicationDosageHistories);
         }
-        
+
+        /// <summary>
+        /// Add a payment to history.
+        /// </summary>
+        /// <response code="201">Returns the new history</response>
+        /// <response code="404">Patient with given id not found</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Create(Guid patientId, [FromBody] CreateHistoryDto historyDto)
         {
             var history = mapper.Map<History>(historyDto);
@@ -59,7 +79,14 @@ namespace MyDocAppointment.API.Features.Histories
             return Created(nameof(GetAllHistories), history);
         }
 
+        /// <summary>
+        /// Deletes a specific History recors.
+        /// </summary>
+        /// <response code="201">Success</response>
+        /// <response code="404">History not found</response>
         [HttpDelete("{historyId:Guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteHistory(Guid historyId)
         {
             try

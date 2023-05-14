@@ -3,6 +3,7 @@ using MyDocAppointment.BusinessLayer.Entities;
 
 namespace MyDocAppointment.BusinessLayer.Data
 {
+#pragma warning disable CS1591
     public class MyDocAppointmentDatabaseContext : DbContext
     {
 
@@ -49,4 +50,5 @@ namespace MyDocAppointment.BusinessLayer.Data
 
         }
     }
+#pragma warning restore CS1591
 }

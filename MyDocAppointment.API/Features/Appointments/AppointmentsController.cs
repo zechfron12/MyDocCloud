@@ -22,8 +22,14 @@ namespace MyDocAppointment.API.Features.Appointments
             this.mapper = mapper;
         }
 
-
+        /// <summary>
+        /// Get all Appointments.
+        /// </summary>
+        /// <param name="appointmentId"></param>
+        /// <response code="200">Returns all appointmnets</response>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAllAppointments()
         {
 
@@ -31,10 +37,17 @@ namespace MyDocAppointment.API.Features.Appointments
             var appointmentsDto = mapper.Map<IEnumerable<AppointmentDto>>(appointments);
             
             return Ok(appointmentsDto);
-            
+
         }
 
+        /// <summary>
+        /// Creates an Appointment.
+        /// </summary>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">Patient with given id not found or Doctor with given id not found</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] CreateAppointmentDto appointmentDto)
         {
             var appointment = mapper.Map<Appointment>(appointmentDto);
@@ -69,7 +82,14 @@ namespace MyDocAppointment.API.Features.Appointments
             return Created(nameof(GetAllAppointments), appointment);
         }
 
+        /// <summary>
+        /// Deletes a specific Appointment.
+        /// </summary>
+        /// <response code="204">Created</response>
+        /// <response code="404">Appointment not found</response>
         [HttpDelete("{appointmentId:Guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteAppointment(Guid appointmentId)
         {
             try

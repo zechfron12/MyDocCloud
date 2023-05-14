@@ -21,7 +21,12 @@ namespace MyDocAppointment.API.Features.Hospitals
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Get all hospitals.
+        /// </summary>
+        /// <response code="200">Returns all hospitals</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAllHospitals()
         {
             var hospitals = hospitalRepository.GetAll().Result;
@@ -30,7 +35,13 @@ namespace MyDocAppointment.API.Features.Hospitals
             return Ok(hospitalsDto);
         }
 
+        /// <summary>
+        /// Get all Doctors from a specific Hospidat.
+        /// </summary>
+        /// <response code="200">Returns all doctors from a hospital</response>
         [HttpGet("{hospitalId:Guid}/doctors")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult GetAllDoctorsFromHostpital(Guid hospitalId)
         {
             var doctors = doctorRepository.Find(doctor => doctor.HospitalId == hospitalId).Result;
@@ -39,7 +50,15 @@ namespace MyDocAppointment.API.Features.Hospitals
             return Ok(doctorDtos);
         }
 
+        /// <summary>
+        /// Create a Hospital.
+        /// </summary>
+        /// <response code="201">Returns the created hospital</response>
+        /// <response code="400">The fields in hospital must not be null</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public IActionResult CreateHospital([FromBody] CreateHospitalDto hospitalDto)
         {
             if (hospitalDto.Name != null && hospitalDto.Address != null && hospitalDto.Phone != null)
@@ -52,7 +71,14 @@ namespace MyDocAppointment.API.Features.Hospitals
             return BadRequest("The fields in hospital must not be null");
         }
 
+        /// <summary>
+        /// Add doctors to a Hospital.
+        /// </summary>
+        /// <response code="204">Success</response>
+        /// <response code="404">Hospital with given id not found</response>
         [HttpPost("{hospitalId:Guid}/doctors")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult RegisterNewDoctorsToHospital(Guid hospitalId, [FromBody] List<CreateDoctorDto> doctorsDtos)
         {
 
@@ -76,7 +102,15 @@ namespace MyDocAppointment.API.Features.Hospitals
             return result.IsSuccess ? NoContent() : BadRequest();
         }
 
+        /// <summary>
+        /// Delete a specific Hospital.
+        /// </summary>
+        /// <response code="204">Success</response>
+        /// <response code="404">Hospital with given id not found</response>
+
         [HttpDelete("{hospitalId:Guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteHospital(Guid hospitalId)
         {
             hospitalRepository.Delete(hospitalId);

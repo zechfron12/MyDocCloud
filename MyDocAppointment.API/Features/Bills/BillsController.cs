@@ -22,7 +22,9 @@ namespace MyDocAppointment.API.Features.Bills
             this.paymentRepository = paymentRepository;
             this.mapper = mapper;
         }
-
+        /// <summary>
+        /// Get all Bills.
+        /// </summary>
         [HttpGet]
         public IActionResult GetAllBills()
         {
@@ -31,8 +33,14 @@ namespace MyDocAppointment.API.Features.Bills
 
             return Ok(billsDto);
         }
-
+        /// <summary>
+        /// Get a specific bill.
+        /// </summary>
+        /// <response code="201">Success</response>
+        /// <response code="400">There is no bill with given id</response>
         [HttpGet("{billId:Guid}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetBillById(Guid billId)
         {
             var bill = billRepository.GetById(billId).Result;
@@ -45,8 +53,14 @@ namespace MyDocAppointment.API.Features.Bills
             var billDto = mapper.Map<BillDto>(bill);
             return Ok(billDto);
         }
-
+        /// <summary>
+        /// Get medications of a specific bill.
+        /// </summary>
+        /// <response code="201">Ok</response>
+        /// <response code="404">Bill with given id not found</response>
         [HttpGet("{billId:Guid}/medications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetMedicationsFromBill(Guid billId)
         {
             var bill = billRepository.GetById(billId).Result;
@@ -61,8 +75,14 @@ namespace MyDocAppointment.API.Features.Bills
 
             return Ok(medicationDtos);
         }
-
+        /// <summary>
+        /// Get payment details of a specific bill.
+        /// </summary>
+        /// <response code="201">Created</response>
+        /// <response code="404">Bill with given id not found"</response>
         [HttpGet("{billId:Guid}/payment")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetPaymentFromBill(Guid billId)
         {
             var bill = billRepository.GetById(billId).Result;
@@ -76,8 +96,12 @@ namespace MyDocAppointment.API.Features.Bills
             return Ok(payment);
         }
 
-
+        /// <summary>
+        /// Create a bill.
+        /// </summary>
+        /// <response code="201">Created</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult Create([FromBody] CreateBillDto billDto)
         {
             var bill = mapper.Map<Bill>(billDto);
@@ -88,7 +112,14 @@ namespace MyDocAppointment.API.Features.Bills
             
         }
 
+        /// <summary>
+        /// Add medications to a Bill.
+        /// </summary>
+        /// <response code="200">Ok</response>
+        /// <response code="404">If Bill with given id not found or Medication with given id not found</response>
         [HttpPost("{billId:Guid}/medications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult RegisterMedicationsToBill(Guid billId, [FromBody] List<MedicationDto> medicationDtos)
         {
             var bill = billRepository.GetById(billId).Result;
@@ -117,7 +148,16 @@ namespace MyDocAppointment.API.Features.Bills
             return Ok(medications);
         }
 
+        /// <summary>
+        /// Add payment to a bill.
+        /// </summary>
+        /// <response code="201">Created</response>
+        /// <response code="400">The bill already has a payment</response>
+        /// <response code="400">Bill with given id not found</response>
         [HttpPost("{billId:Guid}/payment")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult RegisterPaymentToBill(Guid billId, [FromBody] PaymentDto paymentDto)
         {
             var bill = billRepository.GetById(billId).Result;
@@ -161,7 +201,14 @@ namespace MyDocAppointment.API.Features.Bills
             return Ok(payment);
         }
 
+        /// <summary>
+        /// Delete a bill.
+        /// </summary>
+        /// <response code="204">Success</response>
+        /// <response code="404">Bill not found</response>
         [HttpDelete("{billId:Guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteBill(Guid billId)
         {
             try
@@ -177,7 +224,14 @@ namespace MyDocAppointment.API.Features.Bills
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a medication from a bill.
+        /// </summary>
+        /// <response code="204">Success</response>
+        /// <response code="404">If no entity with given Id was found</response>
         [HttpDelete("{billId:Guid}/medications/{medicationId:Guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteMedicationFromBill(Guid billId, Guid medicationId)
         {
             var billToChange = billRepository.GetById(billId).Result;

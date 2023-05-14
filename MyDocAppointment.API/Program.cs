@@ -1,4 +1,6 @@
+using Microsoft.OpenApi.Models;
 using MyDocAppointment.API;
+using System.Reflection;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -19,7 +21,25 @@ builder.Services.AddCors(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "MyDocAppointment API",
+        Description = "An ASP.NET Core Web API for managing Doctor Appointments",
+
+        Contact = new OpenApiContact
+        {
+            Name = "Chelaru Radu",
+            Url = new Uri("https://github.com/zechfron12")
+        },
+    });
+
+    // using System.Reflection;
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddControllers().AddNewtonsoftJson(x => { x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
 
