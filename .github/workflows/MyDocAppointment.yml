@@ -1,4 +1,4 @@
-name: Build and deploy .NET Core application to Web App MyDocAppointment with API Management Service MyDocCloudAPI-MyDocCloudAPI
+name: Build and deploy .NET Core application to Web App MyDocAppointment
 on:
   push:
     branches:
@@ -6,20 +6,9 @@ on:
 env:
   AZURE_WEBAPP_NAME: MyDocAppointment
   AZURE_WEBAPP_PACKAGE_PATH: MyDocAppointment.API\publish
-  AZURE_APIM_RESOURCE_PATH: /
-  AZURE_APIM_RESOURCEGROUP: MyDocCloud
-  AZURE_APIM_SERVICENAME: MyDocCloudAPI
-  AZURE_APIM_API_ID: MyDocCloudAPI
-  AZURE_APIM_APPSERVICEURL: https://mydocappointment.azurewebsites.net
-  SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.5.0
-  SWASHBUCKLE_DOTNET_CORE_VERSION: 6.0.x
-  API_IMPORT_SPECIFICATION_PATH: MyDocAppointment.API\publish\swagger.json
-  API_IMPORT_DLL: MyDocAppointment.API\bin\Release\net7.0\MyDocAppointment.API.dll
-  API_IMPORT_VERSION: v1
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 7.0.x
   WORKING_DIRECTORY: MyDocAppointment.API
-  PROJECT_PATH: MyDocAppointment.API//MyDocAppointment.API.csproj
 jobs:
   build:
     runs-on: windows-latest
@@ -29,21 +18,14 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-    - name: Setup SwashBuckle .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
     - name: Restore
-      run: dotnet restore ${{ env.PROJECT_PATH }}
+      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
-      run: dotnet build ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-restore
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+    - name: Test
+      run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     - name: Publish
-      run: dotnet publish ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    - name: Install Swashbuckle CLI .NET Global Tool
-      run: dotnet tool install --global Swashbuckle.AspNetCore.Cli --version ${{ env.SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION }}
-      working-directory: ${{ env.WORKING_DIRECTORY }}
-    - name: Generate Open API Specification Document
-      run: swagger tofile --output "${{ env.API_IMPORT_SPECIFICATION_PATH }}" "${{ env.API_IMPORT_DLL }}" "${{ env.API_IMPORT_VERSION }}"
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Publish Artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -62,14 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.MyDocAppointment_77BA }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-        publish-profile: ${{ secrets.MyDocAppointment_B205 }}
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.MyDocCloudAPI_SPN }}
-    - name: Import API into Azure API Management
-      run: az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group "${{ env.AZURE_APIM_RESOURCEGROUP }}" --service-name "${{ env.AZURE_APIM_SERVICENAME }}" --api-id "${{ env.AZURE_APIM_API_ID }}" --service-url "${{ env.AZURE_APIM_APPSERVICEURL }}" --specification-path "${{ env.API_IMPORT_SPECIFICATION_PATH }}" --specification-format OpenApi --subscription-required false
-    - name: logout
-      run: >
-        az logout
