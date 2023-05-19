@@ -12,7 +12,7 @@ env:
   AZURE_APIM_API_ID: MyDocCloudAPI
   AZURE_APIM_APPSERVICEURL: https://mydocappointment.azurewebsites.net
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.5.0
-  SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
+  SWASHBUCKLE_DOTNET_CORE_VERSION: 6.0.x
   API_IMPORT_SPECIFICATION_PATH: MyDocAppointment.API\publish\swagger.json
   API_IMPORT_DLL: MyDocAppointment.API\bin\Release\net7.0\MyDocAppointment.API.dll
   API_IMPORT_VERSION: v1
